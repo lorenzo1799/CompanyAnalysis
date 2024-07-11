@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Confronto Aziende di Bitcoin Mining</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f0f0f0;
+            margin: 0;
+            padding: 20px;
+            color: #333;
+        }
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+        }
+        .card {
+            background-color: white;
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease;
+        }
+        .card:hover {
+            transform: translateY(-5px);
+        }
+        .card h2 {
+            margin-top: 0;
+            border-bottom: 2px solid;
+            padding-bottom: 10px;
+        }
+        .metric {
+            margin: 10px 0;
+            font-size: 0.9em;
+        }
+        .metric-name {
+            font-weight: bold;
+        }
+        .bar {
+            height: 10px;
+            background-color: #e0e0e0;
+            border-radius: 5px;
+            margin-top: 5px;
+        }
+        .bar-fill {
+            height: 100%;
+            border-radius: 5px;
+            transition: width 0.5s ease-out;
+        }
+        .expand-btn {
+            background: none;
+            border: none;
+            color: #0066cc;
+            cursor: pointer;
+            padding: 5px 0;
+            margin-top: 10px;
+        }
+        .additional-info {
+            display: none;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="grid" id="companyGrid"></div>
+
+    <script>
+        const companies = [
+            {
+                name: "Hive Blockchain (HIVE)",
+                color: "#4CAF50",
+                marketCap: 402.53,
+                enterpriseValue: 416.60,
+                currentPE: "--",
+                forwardPE: "--",
+                priceToSales: 2.69,
+                enterpriseToRevenue: 3.64,
+                enterpriseToEBITDA: 17.01,
+                profitMargin: -44.73,
+                operatingMargin: -6.91,
+                returnOnAssets: -10.39,
+                returnOnEquity: -25.07,
+                revenue: 114.47,
+                revenueGrowth: 102.40,
+                EBITDA: 21.29,
+                netIncome: -51.2,
+                EPS: -0.57,
+                totalDebt: 30.6,
+                debtToEquity: 11.78,
+                currentRatio: 6.77,
+                bookValuePerShare: 2.45,
+                operatingCashFlow: 13.53,
+                freeCashFlow: -124.88,
+                week52High: 6.84,
+                week52Low: 2.18,
+                bondHoldings: "8.25M (Capital Lease Obligations)",
+                equity: 259.69,
+                dividend: "--",
+                dividendYield: "--"
+            },
+            {
+                name: "Marathon Digital (MARA)",
+                color: "#2196F3",
+                marketCap: 5510,
+                enterpriseValue: 5530,
+                currentPE: 12.19,
+                forwardPE: 37.17,
+                priceToSales: 8.44,
+                enterpriseToRevenue: 11.03,
+                enterpriseToEBITDA: 7.05,
+                profitMargin: 95.63,
+                operatingMargin: 246.40,
+                returnOnAssets: 14.84,
+                returnOnEquity: 31.74,
+                revenue: 501.57,
+                revenueGrowth: 223.10,
+                EBITDA: 748.63,
+                netIncome: 477.53,
+                EPS: 1.60,
+                totalDebt: 340.5,
+                debtToEquity: 13.75,
+                currentRatio: 23.07,
+                bookValuePerShare: 9.21,
+                operatingCashFlow: -312.53,
+                freeCashFlow: -770.57,
+                week52High: 34.09,
+                week52Low: 7.16,
+                bondHoldings: "--",
+                equity: 1615,
+                dividend: "--",
+                dividendYield: "--"
+            },
+            {
+                name: "MicroStrategy (MSTR)",
+                color: "#FFC107",
+                marketCap: 5160,
+                enterpriseValue: 8230,
+                currentPE: "--",
+                forwardPE: "--",
+                priceToSales: 8.37,
+                enterpriseToRevenue: 14.89,
+                enterpriseToEBITDA: 53.71,
+                profitMargin: -18.92,
+                operatingMargin: -19.45,
+                returnOnAssets: -4.70,
+                returnOnEquity: -12.97,
+                revenue: 554.27,
+                revenueGrowth: 2.40,
+                EBITDA: 153.30,
+                netIncome: -104.04,
+                EPS: -9.62,
+                totalDebt: 2960,
+                debtToEquity: 183.72,
+                currentRatio: 0.52,
+                bookValuePerShare: -92.29,
+                operatingCashFlow: 25.46,
+                freeCashFlow: 23.50,
+                week52High: 358.80,
+                week52Low: 145.99,
+                bondHoldings: "--",
+                equity: -2450,
+                dividend: "--",
+                dividendYield: "--"
+            },
+            {
+                name: "Riot Platforms (RIOT)",
+                color: "#9C27B0",
+                marketCap: 2710,
+                enterpriseValue: 2050,
+                currentPE: 22.38,
+                forwardPE: 20.00,
+                priceToSales: 6.49,
+                enterpriseToRevenue: 7.15,
+                enterpriseToEBITDA: "--",
+                profitMargin: 50.15,
+                operatingMargin: 222.30,
+                returnOnAssets: 0.42,
+                returnOnEquity: 8.06,
+                revenue: 286.74,
+                revenueGrowth: 8.30,
+                EBITDA: 238.41,
+                netIncome: 143.79,
+                EPS: 0.42,
+                totalDebt: 24.35,
+                debtToEquity: 0.98,
+                currentRatio: 8.47,
+                bookValuePerShare: 9.24,
+                operatingCashFlow: -57.13,
+                freeCashFlow: -248.86,
+                week52High: 20.65,
+                week52Low: 7.80,
+                bondHoldings: "--",
+                equity: 1888,
+                dividend: "--",
+                dividendYield: "--"
+            },
+            {
+                name: "Core Scientific (CORZ)",
+                color: "#FF5722",
+                marketCap: 1840,
+                enterpriseValue: 2400,
+                currentPE: 79.06,
+                forwardPE: 21.37,
+                priceToSales: 6.59,
+                enterpriseToRevenue: 4.28,
+                enterpriseToEBITDA: 13.99,
+                profitMargin: -6.31,
+                operatingMargin: 32.93,
+                returnOnAssets: 5.26,
+                returnOnEquity: "--",
+                revenue: 561.04,
+                revenueGrowth: 48.60,
+                EBITDA: 171.18,
+                netIncome: -35.41,
+                EPS: 0.13,
+                totalDebt: 655.73,
+                debtToEquity: "--",
+                currentRatio: 1.04,
+                bookValuePerShare: -1.75,
+                operatingCashFlow: 67.35,
+                freeCashFlow: -26.35,
+                week52High: 11.00,
+                week52Low: 2.61,
+                bondHoldings: "--",
+                equity: -596.94,
+                dividend: "--",
+                dividendYield: "--"
+            },
+            {
+                name: "CleanSpark (CLSK)",
+                color: "#607D8B",
+                marketCap: 3510,
+                enterpriseValue: 2850,
+                currentPE: 118.62,
+                forwardPE: 526.32,
+                priceToSales: 8.88,
+                enterpriseToRevenue: 9.99,
+                enterpriseToEBITDA: 12.52,
+                profitMargin: 22.41,
+                operatingMargin: 124.48,
+                returnOnAssets: 4.94,
+                returnOnEquity: 7.14,
+                revenue: 283.63,
+                revenueGrowth: 162.80,
+                EBITDA: 223.9,
+                netIncome: 65.72,
+                EPS: 0.13,
+                totalDebt: 13.44,
+                debtToEquity: 0.92,
+                currentRatio: 12.50,
+                bookValuePerShare: 6.49,
+                operatingCashFlow: -125.21,
+                freeCashFlow: -190.18,
+                week52High: 24.72,
+                week52Low: 3.38,
+                bondHoldings: "--",
+                equity: 677.227,
+                dividend: "--",
+                dividendYield: "--"
+            }
+        ];
+
+        function createCompanyCard(company) {
+            const card = document.createElement('div');
+            card.className = 'card';
+            card.style.borderColor = company.color;
+
+            let metricsHtml = '';
+            for (let [key, value] of Object.entries(company)) {
+                if (key !== 'name' && key !== 'color') {
+                    metricsHtml += `
+                        <div class="metric">
+                            <span class="metric-name">${formatMetricName(key)}:</span>
+                            <span>${formatMetricValue(key, value)}</span>
+                        </div>
+                    `;
+                }
+            }
+
+            card.innerHTML = `
+                <h2 style="color: ${company.color}">${company.name}</h2>
+                <div class="metric">
+                    <span class="metric-name">Capitalizzazione di Mercato:</span>
+                    <span>$${company.marketCap}M</span>
+                    <div class="bar">
+                        <div class="bar-fill" style="background-color: ${company.color}; width: 0%"></div>
+                    </div>
+                </div>
+                <button class="expand-btn">Mostra più informazioni</button>
+                <div class="additional-info">
+                    ${metricsHtml}
+                </div>
+            `;
+
+            return card;
+        }
+
+        function formatMetricName(key) {
+            return key.replace(/([A-Z])/g, ' $1').replace(/^./, str => str.toUpperCase());
+        }
+
+        function formatMetricValue(key, value) {
+            if (typeof value === 'number') {
+                if (['marketCap', 'enterpriseValue', 'revenue', 'EBITDA', 'netIncome', 'totalDebt', 'equity', 'operatingCashFlow', 'freeCashFlow'].includes(key)) {
+                    return `$${value}M`;
+                }
+                if (['profitMargin', 'operatingMargin', 'returnOnAssets', 'returnOnEquity', 'revenueGrowth', 'debtToEquity', 'dividendYield'].includes(key)) {
+                    return `${value}%`;
+                }
+                return value.toFixed(2);
+            }
+            return value;
+        }
+
+        function initializeGrid() {
+            const grid = document.getElementById('companyGrid');
+            companies.forEach(company => {
+                grid.appendChild(createCompanyCard(company));
+            });
+
+            // Animazione delle barre
+            setTimeout(() => {
+                const maxMarketCap = Math.max(...companies.map(c => c.marketCap));
+                companies.forEach((company, index) => {
+                    const barFill = document.querySelectorAll('.bar-fill')[index];
+                    const percentage = (company.marketCap / maxMarketCap) * 100;
+                    barFill.style.width = `${percentage}%`;
+                });
+            }, 100);
+
+            // Gestione pulsanti di espansione
+            document.querySelectorAll('.expand-btn').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const info = this.nextElementSibling;
+                    if (info.style.display === 'none' || info.style.display === '') {
+                        info.style.display = 'block';
+                        this.textContent = 'Nascondi informazioni';
+                    } else {
+                        info.style.display = 'none';
+                        this.textContent = 'Mostra più informazioni';
+                    }
+                });
+            });
+        }
+
+        document.addEventListener('DOMContentLoaded', initializeGrid);
+    </script>
+</body>
+</html>
